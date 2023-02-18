@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% load static %}
+    <meta charset="utf-8" />
+    <title>{% block title %}My shop{% endblock %}</title>
+    <link href="{% static 'Shop/CSS/base.css' %}" rel="stylesheet">
+    
+    <link href="https://vjs.zencdn.net/7.10.2/video.min.js" rel="stylesheet">
+    <script src="{% static 'Shop/scripts/modernizr-2.6.2.js' %}"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <ul class="main-nav">
+                    <li class="logo">
+                        <a href="/">My shop</a>
+                    </li>
+                    <li class="login-logout">
+                        {% if user.is_authenticated %}
+                        <form id="logoutForm" action="/logout/" method="post" class="login-logout">
+                            {% csrf_token %}
+                            Привет {{ user.username }}!
+                            <a href="{% url 'logout' %}">Выход</a>
+                        </form>
+                        {% else %}
+                        <a href="{% url 'login' %}">Войти</a>
+                        {% endif %}
+                    </li>
+                    <li class="catalog">
+                        <a href="{% url 'Shop:product_list' %}">Каталог</a>
+                    </li>
+                    <li class="prod-views">
+                        <a href="{% url 'reviews:reviews_list' %}">Обзоры</a>
+                    </li>
+                    <li class="cart">
+                        {% with total_items=cart|length %}
+                        {% if cart|length > 0 %}
+                        <a href="{% url 'cart:cart_detail' %}">
+                            Ваша корзина:
+                            {{ total_items }} товар {{ total_items|pluralize }},
+                            {{ cart.get_total_price }} ₽
+                        </a>
+                        {% else %}
+                        <a href="{% url 'cart:cart_detail' %}"> Корзина: 0</a>
+                        {% endif %}
+                        {% endwith %}
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        {% block content %}
+        {% endblock %}
+        <footer>
+            <p>&copy; 2023 - @PythonInter</p>
+        </footer>
+    </div>
+    <script src="https://vjs.zencdn.net/8.0.4/video.min.js"></script>
+    <script src="{% static 'Shop/scripts/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'Shop/scripts/bootstrap.js' %}"></script>
+    <script src="{% static 'Shop/scripts/respond.js' %}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

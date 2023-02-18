@@ -1,0 +1,30 @@
+{% extends "Shop/base.html" %}
+{% load static %}
+{% block title %}
+    {% if category %} Обзор на {{ category.name }}{% else %}Обзоры{% endif %}
+{% endblock %}
+{% block content %}
+<main class="reviews-main">
+    <div class="main-wrapper">
+        <div class="head1">{% if category %}{{ category.name }}{% else %}Обзоры{% endif %}</div>
+        {% for product in products %}
+        <div class="border">
+            <div class="wrap">
+                <div class="product-wrap">
+                    <a href="{{ product.get_absolute_url_reviews }}">
+                        <img src="{% if product.main_image %}{{ product.main_image.url }}{% else %}{% static 'Shop/content/logo.png' %}
+                    {% endif %}">
+                    </a>
+                </div>
+                <div class="loop-action">
+                    <a href="{{ product.get_absolute_url_reviews }}" class="add-to-cart">Смотреть обзор</a>
+                </div>
+            </div>
+            <div class="product-info">
+                <h3 class="product-title">{{ product.name }}</h3>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</main>
+{% endblock %}

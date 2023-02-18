@@ -1,0 +1,47 @@
+﻿{% extends "Shop/base.html" %}
+{% load static %}
+{% block title %}
+    {% if product %}{{ product.name }}{% else %}Товары{% endif %}
+{% endblock %}
+{% block content %}
+<main class="product-detai-main">
+    <h1 class="head1">{{ product.name }}</h1>
+    <h2 class="head2"><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="30000">
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="{{ product.main_image.url }}" alt="{{id}}" height="400" class="img-responsive" />
+                <div class="carousel-caption" role="option">
+                </div>
+            </div>
+            {% for products_photo in products_photo %}
+            <div class="item">
+                <img src="{{ products_photo.image.url }}" alt="{{id}}" height="400" class="img-responsive" />
+                <div class="carousel-caption" role="option">
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span aria-hidden="true">
+                &#129144;
+            </span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span aria-hidden="true">
+                &#129146;
+            </span>
+        </a>
+    </div>
+    <form action="{% url 'cart:cart_add' product.id %}" method="post">
+        {% csrf_token %}
+        <div class="label">{{ cart_product_form.quantity.label }}</div>
+        <div class="quantity">{{ cart_product_form.quantity}}</div>
+        <input class="add-to-cart" type="submit" value="Добавить в корзину">
+    </form>
+    <div class="description">
+        <p class="price">Цена - {{ product.price }} ₽</p>
+        {{ product.description}}
+    </div>
+</main>
+{% endblock %}

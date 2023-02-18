@@ -1,0 +1,91 @@
+.product-wrap {
+   width: 200px;
+   margin: 0 auto;
+   background: white;
+   padding: 0 0 20px;
+   text-align: center;
+   font-size: 14px;
+   font-family: Lora;
+   text-transform: uppercase;
+}
+.product-item {
+   position: relative;
+   overflow: hidden;
+}
+.product-wrap img {
+    display: block;
+    width: 100%;
+    width: 200px;
+    height: 200px;
+}
+.product-buttons {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 200px;
+    background: rgba(0, 0, 0, .8);
+    opacity: 0;
+    transition: .3s ease-in-out;
+}
+
+.button {
+   text-decoration: none;
+   text-align: center;
+   font-size: 12px;
+   width: 150px;
+   height: 40px;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   border-radius: 10px;
+   transform: translate(-50%, -50%) scale(0);
+   transition: .3s ease-in-out;
+}
+.button:before {
+   margin-right: 10px;
+}
+.product-item:hover .product-buttons {
+   opacity: 1;
+}
+.product-item:hover .button {
+   transform: translate(-50%, -50%) scale(1);
+}
+.button:hover {
+   background: black;
+   color: white;
+}
+.product-title {
+   color: #5e5e5e;
+}
+.product-title a {
+   text-decoration: none;
+   color: #2e2e2e;
+   font-weight: 600;
+   margin: 15px 0 5px;
+   padding-bottom: 7px;
+   display: block;
+   position: relative;
+   transition: .3s ease-in-out;
+}
+.product-title a:after {
+   content: "";
+   position: absolute;
+   width: 40px;
+   height: 2px;
+   background: #2e2e2e;
+   left: 50%;
+   margin-left: -20px;
+   bottom: 0;
+   transition: .3s ease-in-out;
+}
+.product-title a:hover {
+   color: #c0a97a;
+}
+.product-title:hover a:after {
+   background: #c0a97a;
+}
+.product-price {
+   font-size: 20px;
+   font-weight: 700;
+}
